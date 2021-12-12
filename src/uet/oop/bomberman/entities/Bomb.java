@@ -7,6 +7,7 @@ import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.media.Media;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +19,7 @@ public class Bomb extends Entity {
     private List<Flame> flames = new ArrayList<>();
     private boolean done = false;
     private boolean exploded = false;
-    private int explosionCountDown = 15;
+    private int explosionCountDown = 20;
     private int tickingCountDown = 90;
     private boolean playSound = false;
 
@@ -154,14 +155,13 @@ public class Bomb extends Entity {
                 int row = x + j * iX[i];
                 int col = y + j * iY[i];
                 // check xem row col co trong map k
-                if (row > 0 && row < BombermanGame.WIDTH - 1 && col > 0 && col < BombermanGame.HEIGHT- 1) {
+                if (row > 0 && row < BombermanGame.WIDTH - 1 && col > 0 && col < BombermanGame.HEIGHT- 1)
+                {
                     char flag = BombermanGame.map[col][row];
                     if (flag == 'b') {
                         System.out.println("(" + col + " " + row + ")");
-                        System.out.println();
                         BombermanGame.map[col][row] = 'g';
                     }
-
                     if (j == bombLevel) {
                         flames.add(new Flame(x + iX[i] * bombLevel, y + iY[i] * bombLevel, null, pos[i + 4]));
                     }
@@ -180,14 +180,10 @@ public class Bomb extends Entity {
     }
 
     public void setPlaySound(boolean playSound) {
-//        Media media = new Media("D:\\Nam_hai\\Semester_1\\OOP\\bomberman-starter-starter-2\\src\\bombExplosion.mp3");
-//        MediaPlayer mediaPlayer = new MediaPlayer(media);
-//        mediaPlayer.play();
+        Media media = new Media(new File("D:\\Nam_hai\\Semester_1\\OOP\\bomberman-starter-starter-2\\src\\bombExplosion.mp3")
+                .toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
         this.playSound = playSound;
     }
-
-    public void playSound() {
-
-    }
-
 }
