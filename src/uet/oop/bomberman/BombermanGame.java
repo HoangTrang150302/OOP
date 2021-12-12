@@ -57,7 +57,6 @@ public class BombermanGame extends Application {
         // Tao scene
         Scene scene = new Scene(root);
 
-
         //Setting the title to Stage.
         stage.setTitle("Bomberman");
         // Attach the scene object to the stage
@@ -78,7 +77,7 @@ public class BombermanGame extends Application {
         createMap();
 
         // col(31) - row(13)
-       Entity bomb = new Bomb(29,11,Sprite.bomb.getFxImage());
+       Entity bomb = new Bomb(9,3,Sprite.bomb.getFxImage());
 
        // Add vào list
         entities.add(bomb);
@@ -146,36 +145,6 @@ public class BombermanGame extends Application {
         }
     }
 
-    /** Tao ra map từ các entity tĩnh. */
-//    public void createMap() {
-//        map = new String[WIDTH][HEIGHT];
-//        for (int i = 0; i < WIDTH; i++) {
-//            for (int j = 0; j < HEIGHT; j++) {
-//                Entity object;
-//                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-//                    object = new Wall(i, j, Sprite.wall.getFxImage());
-//                    map[i][j] = "wall";
-//                    stillObjects.add(object);
-//                }
-//                else if (i % 2 == 0 && j % 2 == 0) {
-//                    object = new Wall(i, j, Sprite.wall.getFxImage());
-//                    map[i][j] = "wall";
-//                    stillObjects.add(object);
-//                }
-//                else if (i % 3 == 0 && j % 2 == 0) {
-//                    object = new Brick(i, j, Sprite.brick.getFxImage());
-//                    map[i][j] = "brick";
-//                    staticObjects.add(object);
-//                }
-//                else {
-//                    object = new Grass(i, j, Sprite.grass.getFxImage());
-//                    map[i][j] = "grass";
-//                    stillObjects.add(object);
-//                }
-//            }
-//        }
-//    }
-
     public void update() {
         updateDamagedObjects();
         for (Entity entity : entities) {
@@ -198,14 +167,14 @@ public class BombermanGame extends Application {
         for (Entity stillObject : stillObjects) {
             stillObject.render(gc);
         }
+        for (Entity g : staticObjects) {
+            g.render(gc);
+        }
         for (Entity entity : entities) {
             entity.render(gc);
         }
         for (Entity flame : flames) {
             flame.render(gc);
-        }
-        for (Entity g : staticObjects) {
-            g.render(gc);
         }
     }
 
@@ -214,7 +183,7 @@ public class BombermanGame extends Application {
         for (int i = 0; i < entities.size(); i++) {
             checkForDamagedEntities(entities.get(i));
             for (int j = 0; j < damagedEntities.size(); j++) {
-                updateStaticObjectsAndEnemies(damagedEntities.get(j));
+                updateStaticObjects(damagedEntities.get(j));
             }
 
         }
@@ -243,7 +212,7 @@ public class BombermanGame extends Application {
         }
     }
 
-    public void updateStaticObjectsAndEnemies(Entity br) {
+    public void updateStaticObjects(Entity br) {
         if (br instanceof Brick) {
             if (((Brick) br).isDone()) {
 
