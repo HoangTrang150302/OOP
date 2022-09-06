@@ -32,6 +32,7 @@ public class BombermanGame extends Application {
     public static List<Entity> staticObjects = new ArrayList<>(); // contains Items and Bricks
     public static List<Entity> damagedEntities = new ArrayList<>();
     public static char map[][];
+    public int b;
 
     public static KeyInput keyInput = new KeyInput();
 
